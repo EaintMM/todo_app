@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/task_data.dart';
 
 class AddTaskScreen extends StatelessWidget {
-  const AddTaskScreen({
-    Key? key,
-    required this.addTaskCallBack,
-  }) : super(key: key);
-  final Function(String? text)? addTaskCallBack;
-
   @override
   Widget build(BuildContext context) {
     String? inputText;
@@ -44,8 +41,9 @@ class AddTaskScreen extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   // add to list
-
-                  addTaskCallBack!(inputText);
+                  Provider.of<TaskData>(context, listen: false)
+                      .addTask(inputText!);
+                  Navigator.pop(context);
                 },
                 child: Text('Add'),
                 style: ElevatedButton.styleFrom(

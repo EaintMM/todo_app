@@ -6,11 +6,13 @@ class TaskTile extends StatelessWidget {
     required this.title,
     required this.checkBoxState,
     required this.checkBoxCallBack,
+    required this.longPressCallBack,
   }) : super(key: key);
 
   final String title;
   final bool checkBoxState;
   final Function(bool? val)? checkBoxCallBack;
+  final Function()? longPressCallBack;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,33 @@ class TaskTile extends StatelessWidget {
           checkBoxCallBack!(newValue);
         },
       ),
+      onLongPress: () {
+        showDialog(
+            context: context,
+            builder: (BuildContext ctx) {
+              return AlertDialog(
+                title: const Text('Please Confirm'),
+                content: const Text('Are you sure to delete this task?'),
+                actions: [
+                  // The 'Yes' button
+                  TextButton(
+                    onPressed: () {
+                      longPressCallBack!();
+                      //Close the dialog
+                        Navigator.of(context).pop();
+                    },
+                    child: const Text('Yes'),
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        //Close the dialog
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('No')),
+                ],
+              );
+            });
+      },
     );
   }
 }
