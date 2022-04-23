@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/screens/add_task_screen.dart';
 
+import '../models/task.dart';
 import '../widgets/task_lists.dart';
 
 class TasksScreen extends StatefulWidget {
-  const TasksScreen({Key? key}) : super(key: key);
+  TasksScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<TasksScreen> createState() => _TasksScreenState();
 }
 
 class _TasksScreenState extends State<TasksScreen> {
+  List<Task> tasks = [
+    Task(title: 'To do exercise'),
+    Task(title: 'To meditate'),
+    Task(title: 'To buy milk'),
+  ];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -21,11 +29,18 @@ class _TasksScreenState extends State<TasksScreen> {
             showModalBottomSheet(
               context: context,
               isScrollControlled: true,
-              builder: (context) =>  SingleChildScrollView(
+              builder: (context) => SingleChildScrollView(
                 padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom),
-                child: AddTaskScreen(),
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
+                child: AddTaskScreen(
+                  addTaskCallBack: (inputTitle) {
+                    setState(() {
+                      tasks.add(Task(title: inputTitle));
+                    });
+                    Navigator.pop(context);
+                  },
                 ),
+              ),
             );
           },
           child: Icon(
@@ -63,7 +78,7 @@ class _TasksScreenState extends State<TasksScreen> {
                       ),
                     ),
                     Text(
-                      '12 tasks',
+                      '${tasks.length} tasks',
                       style: TextStyle(
                         color: Colors.white,
                       ),
@@ -85,7 +100,9 @@ class _TasksScreenState extends State<TasksScreen> {
                 child: Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 2),
-                  child: TaskLists(),
+                  child: TaskLists(
+                    tasks: tasks,
+                  ),
                 ),
               ),
             ),
