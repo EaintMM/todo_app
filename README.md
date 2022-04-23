@@ -4,13 +4,14 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+A simple to-do app with Provider State Management
 
-A few resources to get you started if this is your first Flutter project:
+Flutter project includes:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- Adding the tasks, ticking the tasks and deleting the task by long pressing.
+- ListView Builder, BottomSheet widgets
+- Working with Callbacks
+- Comfirmation Dialog
+- Provider State Management
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
